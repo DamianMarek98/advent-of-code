@@ -14,7 +14,8 @@ public class RucksackReorganization implements Solver<Integer> {
         try (Scanner scanner = new Scanner(new File("src/challenges/day3/input.txt"))) {
             while (scanner.hasNextLine()) {
                 var line = scanner.nextLine();
-                prioritySum += new Rucksack(line).getDuplicatePriority();
+                //prioritySum += new Rucksack(line).getDuplicatePriority();
+                prioritySum += new Group(line, scanner.nextLine(), scanner.nextLine()).getDuplicatePriority();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package challenges.day3;
 
-public class Rucksack {
+public class Rucksack implements DuplicatePriorityResolver {
     private final String firstCompartment;
     private final String secondCompartment;
 
@@ -10,14 +10,10 @@ public class Rucksack {
         this.secondCompartment = compartment.substring(middleIndex);
     }
 
+    @Override
     public int getDuplicatePriority() {
         var item = getDuplicateItem();
-        var asciiValue = (int) item;
-        if (asciiValue > 96) {
-            return asciiValue - 96;
-        }
-
-        return asciiValue - 38;
+        return PriorityCalculator.calculate(item);
     }
 
     private char getDuplicateItem() {
