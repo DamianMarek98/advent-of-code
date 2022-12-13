@@ -1,10 +1,7 @@
 package challenges.day1;
 
+import challenges.FileLineIterator;
 import challenges.Solver;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class CalorieCounting implements Solver<Integer> {
     @Override
@@ -12,21 +9,16 @@ public class CalorieCounting implements Solver<Integer> {
         var topCalories = new TopCalories();
         var max = 0;
         var currentCalories = 0;
-        try (Scanner scanner = new Scanner(new File("src/challenges/day1/input.txt"))) {
-            while (scanner.hasNextLine()) {
-                var line = scanner.nextLine();
-                if (line.equals("")) {
-                    if (max < currentCalories) {
-                        max = currentCalories;
-                    }
-                    topCalories.handleNewValue(currentCalories);
-                    currentCalories = 0;
-                } else {
-                    currentCalories += Integer.parseInt(line);
+        for (var line : new FileLineIterator(1, "input")) {
+            if (line.equals("")) {
+                if (max < currentCalories) {
+                    max = currentCalories;
                 }
+                topCalories.handleNewValue(currentCalories);
+                currentCalories = 0;
+            } else {
+                currentCalories += Integer.parseInt(line);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
 
         if (max < currentCalories) {
