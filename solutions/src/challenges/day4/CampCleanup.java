@@ -14,7 +14,7 @@ public class CampCleanup implements Solver<Integer> {
         }
 
         return (int) elvesPairs.stream()
-                .filter(ElvesPair::isAssigmentContained)
+                .filter(ElvesPair::isAssigmentOverlapping)
                 .count();
     }
 }

@@ -1,9 +1,9 @@
 package challenges;
 
-import challenges.day3.RucksackReorganization;
+import challenges.day4.CampCleanup;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new RucksackReorganization().solve());
+        System.out.println(new CampCleanup().solve());
     }
 }
