@@ -45,8 +45,19 @@ public class Supply {
     public void apply(Move move) {
         var from = stacks.get(move.getFormIndex());
         var to = stacks.get(move.getToIndex());
+        if (!move.isMultipleCratesAtOne()) {
+            for (int i = 0; i < move.getHowMany(); i++) {
+                to.push(from.pop());
+            }
+            return;
+        }
+
+        var crates = new ArrayList<Character>();
         for (int i = 0; i < move.getHowMany(); i++) {
-            to.push(from.pop());
+            crates.add(from.pop());
+        }
+        for (int i = crates.size() - 1; i >= 0; i--) {
+            to.push(crates.get(i));
         }
     }
 

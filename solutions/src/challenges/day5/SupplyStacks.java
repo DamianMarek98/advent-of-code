@@ -39,7 +39,7 @@ public class SupplyStacks implements Solver<String> {
             }
 
             if (stacksLoaded) {
-                supply.apply(new Move(line));
+                supply.apply(new Move(line, true));
             } else {
                 supply.parseLine(line);
             }
