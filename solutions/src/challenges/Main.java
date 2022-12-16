@@ -1,9 +1,9 @@
 package challenges;
 
-import challenges.day6.TuningTrouble;
+import challenges.day7.NoSpaceLeftOnDevice;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new TuningTrouble().solve());
+        System.out.println(new NoSpaceLeftOnDevice().solve());
     }
 }
