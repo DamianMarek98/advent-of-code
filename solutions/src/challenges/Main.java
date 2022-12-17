@@ -1,9 +1,9 @@
 package challenges;
 
-import challenges.day8.TreetopTreeHouse;
+import challenges.day9.RopeBridge;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new TreetopTreeHouse().solve());
+        System.out.println(new RopeBridge().solve());
     }
 }
