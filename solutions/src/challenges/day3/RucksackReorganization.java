@@ -8,7 +8,7 @@ public class RucksackReorganization implements Solver<Integer> {
     @Override
     public Integer solve() {
         var prioritySum = 0;
-        var linesIterator = new FileLineIterator(3, "input").iterator();
+        var linesIterator = new FileLineIterator(3, true).iterator();
         while (linesIterator.hasNext()) {
             //prioritySum += new Rucksack(linesIterator.next()).getDuplicatePriority();
             prioritySum += new Group(linesIterator.next(), linesIterator.next(), linesIterator.next()).getDuplicatePriority();

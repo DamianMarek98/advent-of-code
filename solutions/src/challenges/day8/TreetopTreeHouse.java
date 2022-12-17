@@ -9,7 +9,7 @@ public class TreetopTreeHouse implements Solver<Integer> {
     @Override
     public Integer solve() {
         var lines = new ArrayList<String>();
-        for (var line : new FileLineIterator(8, "input")) {
+        for (var line : new FileLineIterator(8, true)) {
             lines.add(line);
         }
         var treeGrid = new TreeGrid(lines);

@@ -47,7 +47,7 @@ public class NoSpaceLeftOnDevice implements Solver<Integer> {
     private Dir createFileStructure(HashSet<Dir> dirs) {
         String prev = "";
         Dir root = null;
-        for (var element : new FileLineIterator(7, "input")) {
+        for (var element : new FileLineIterator(7, true)) {
             if (isElementToSkip(prev, element)) {
                 prev = element;
                 continue;

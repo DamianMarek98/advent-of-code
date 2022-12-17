@@ -9,7 +9,7 @@ public class CampCleanup implements Solver<Integer> {
     @Override
     public Integer solve() {
         var elvesPairs = new ArrayList<ElvesPair>();
-        for (var line : new FileLineIterator(4, "input")) {
+        for (var line : new FileLineIterator(4, true)) {
             elvesPairs.add(new ElvesPair(line));
         }
 

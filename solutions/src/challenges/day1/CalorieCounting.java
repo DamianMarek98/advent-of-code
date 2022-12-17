@@ -9,7 +9,7 @@ public class CalorieCounting implements Solver<Integer> {
         var topCalories = new TopCalories();
         var max = 0;
         var currentCalories = 0;
-        for (var line : new FileLineIterator(1, "input")) {
+        for (var line : new FileLineIterator(1, true)) {
             if (line.equals("")) {
                 if (max < currentCalories) {
                     max = currentCalories;

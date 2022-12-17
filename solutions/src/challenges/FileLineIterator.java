@@ -10,7 +10,8 @@ public class FileLineIterator implements Iterable<String> {
     private final Scanner scanner;
     private boolean hasNext = true;
 
-    public FileLineIterator(int day, String fileName) {
+    public FileLineIterator(int day, boolean example) {
+        var fileName = example ? "example" : "input";
         try {
             scanner = new Scanner(new File("src/challenges/day" + day + "/" + fileName + ".txt"));
         } catch (FileNotFoundException e) {
