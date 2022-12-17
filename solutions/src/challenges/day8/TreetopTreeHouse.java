@@ -13,6 +13,6 @@ public class TreetopTreeHouse implements Solver<Integer> {
             lines.add(line);
         }
         var treeGrid = new TreeGrid(lines);
-        return treeGrid.countVisibleTrees();
+        return treeGrid.calculateHighestScenicScore();
     }
 }
