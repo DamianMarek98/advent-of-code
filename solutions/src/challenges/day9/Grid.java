@@ -1,9 +1,7 @@
 package challenges.day9;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Grid {
     private static final String RIGHT = "R";
@@ -11,13 +9,15 @@ public class Grid {
     private static final String DOWN = "D";
     private static final String UP = "U";
     private final Set<Position> visitedByTPositions = new HashSet<>();
-    private Position hPosition;
-    private Position tPosition;
+    //private Position hPosition;
+    //private Position tPosition;
+    private final List<Position> knots;
 
     public Grid() {
-        hPosition = new Position(0, 0);
-        tPosition = hPosition;
-        visitedByTPositions.add(hPosition);
+        knots = Arrays.asList(new Position(0, 0), new Position(0, 0), new Position(0, 0),
+                new Position(0, 0), new Position(0, 0), new Position(0, 0), new Position(0, 0),
+                new Position(0, 0), new Position(0, 0), new Position(0, 0));
+        visitedByTPositions.add(new Position(0, 0));
     }
 
     public void move(int times, String command) {
@@ -32,35 +32,56 @@ public class Grid {
 
     private void move(int times, int x, int y) {
         for (int i = 0; i < times; i++) {
-            hPosition = new Position(hPosition.x() + x, hPosition.y() + y);
-            if (isTInHRange()) {
-                continue;
+            var head = knots.get(0);
+            knots.set(0, new Position(head.x() + x, head.y() + y));
+            var prevPos = knots.get(0);
+
+            for (int knotIndex = 1; knotIndex < knots.size(); knotIndex++) {
+                var next = knots.get(knotIndex);
+                if (isInPrevRange(prevPos, next)) {
+                    prevPos = next;
+                    continue;
+                }
+                if (prevPos.y() == next.y() || prevPos.x() == next.x()) {
+                    var moveX = (prevPos.x() - next.x()) / 2;
+                    var moveY = (prevPos.y() - next.y()) / 2;
+                    next = new Position(next.x() + moveX, next.y() + moveY);
+                } else {
+                    next = findTPosition(prevPos, next);
+                }
+
+                knots.set(knotIndex, new Position(next.x(), next.y()));
+                prevPos = knots.get(knotIndex);
+                if (knotIndex == (knots.size() - 1)) {
+                    visitedByTPositions.add(prevPos);
+                }
             }
-            if (hPosition.y() == tPosition.y() || hPosition.x() == tPosition.x()) {
-                tPosition = new Position(tPosition.x() + x, tPosition.y() + y);
-            } else {
-                tPosition = findTPosition();
-            }
-            visitedByTPositions.add(tPosition);
         }
     }
 
-    private boolean isTInHRange() {
-        return Math.abs(hPosition.x() - tPosition.x()) <= 1 && Math.abs(hPosition.y() - tPosition.y()) <= 1;
+    private boolean isInPrevRange(Position prev, Position next) {
+        return Math.abs(prev.x() - next.x()) <= 1 && Math.abs(prev.y() - next.y()) <= 1;
     }
 
-    private Position findTPosition() {
-        var possiblePositions = List.of(new Position(hPosition.x() + 1, hPosition.y()),
-                new Position(hPosition.x() - 1, hPosition.y()),
-                new Position(hPosition.x(), hPosition.y() + 1),
-                new Position(hPosition.x(), hPosition.y() - 1));
-        return possiblePositions.stream().filter(pos -> pos.x() != tPosition.x() && pos.y() != tPosition.y())
-                .min(Comparator.comparingInt(this::calculateDistanceFromT))
+    private Position findTPosition(Position prev, Position next) {
+        var possiblePositions = Stream.of(new Position(prev.x() + 1, prev.y()), new Position(prev.x() - 1, prev.y()),
+                        new Position(prev.x(), prev.y() + 1), new Position(prev.x(), prev.y() - 1))
+                .filter(pos -> pos.x() != next.x() && pos.y() != next.y())
+                .filter(pos -> calculateDistanceFromPrev(pos, next) <= 2)
+                .toList();
+
+        if (possiblePositions.isEmpty()) {
+            possiblePositions = List.of(new Position(prev.x() + 1, prev.y() + 1), new Position(prev.x() - 1, prev.y() - 1),
+                    new Position(prev.x() - 1, prev.y() + 1), new Position(prev.x() + 1, prev.y() - 1));
+        }
+
+        return possiblePositions.stream()
+                .min(Comparator.comparingInt(pos -> calculateDistanceFromPrev(pos, next)))
                 .orElseThrow(IllegalAccessError::new);
     }
 
-    private int calculateDistanceFromT(Position pos) {
-        return Math.abs(pos.x() - tPosition.x()) + Math.abs(pos.y() - tPosition.y());
+    private int calculateDistanceFromPrev(Position pos, Position next) {
+        return Math.abs(pos.x() - next.x()) + Math.abs(pos.y() - next.y());
     }
 
     public int getNumberOfTVisitedPositions() {
