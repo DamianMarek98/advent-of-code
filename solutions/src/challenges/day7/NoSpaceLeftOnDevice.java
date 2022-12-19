@@ -1,7 +1,7 @@
 package challenges.day7;
 
-import challenges.FileLineIterator;
 import challenges.Solver;
+import challenges.iteration.FileIteratorDirector;
 
 import java.util.HashSet;
 
@@ -47,7 +47,7 @@ public class NoSpaceLeftOnDevice implements Solver<Integer> {
     private Dir createFileStructure(HashSet<Dir> dirs) {
         String prev = "";
         Dir root = null;
-        for (var element : new FileLineIterator(7, true)) {
+        for (var element : new FileIteratorDirector().createFileElementIterator(7, true)) {
             if (isElementToSkip(prev, element)) {
                 prev = element;
                 continue;

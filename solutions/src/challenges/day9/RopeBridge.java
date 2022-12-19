@@ -1,7 +1,7 @@
 package challenges.day9;
 
-import challenges.FileLineIterator;
 import challenges.Solver;
+import challenges.iteration.FileIteratorDirector;
 
 public class RopeBridge implements Solver<Integer> {
     private static final String ONLY_DIGITS_REGEX = "\\d+";
@@ -9,7 +9,7 @@ public class RopeBridge implements Solver<Integer> {
     public Integer solve() {
         var grid = new Grid();
         var previousElem = "";
-        for (var elem : new FileLineIterator(9, false)) {
+        for (var elem : new FileIteratorDirector().createFileElementIterator(9, false)) {
             if (elem.matches(ONLY_DIGITS_REGEX)) {
                 grid.move(Integer.parseInt(elem), previousElem);
             }

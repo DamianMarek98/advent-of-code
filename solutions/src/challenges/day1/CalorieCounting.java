@@ -1,7 +1,7 @@
 package challenges.day1;
 
-import challenges.FileLineIterator;
 import challenges.Solver;
+import challenges.iteration.FileIteratorDirector;
 
 public class CalorieCounting implements Solver<Integer> {
     @Override
@@ -9,7 +9,7 @@ public class CalorieCounting implements Solver<Integer> {
         var topCalories = new TopCalories();
         var max = 0;
         var currentCalories = 0;
-        for (var line : new FileLineIterator(1, true)) {
+        for (var line : new FileIteratorDirector().createFileLineIterator(1, true)) {
             if (line.equals("")) {
                 if (max < currentCalories) {
                     max = currentCalories;

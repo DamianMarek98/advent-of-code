@@ -1,7 +1,7 @@
 package challenges.day10;
 
-import challenges.FileLineIterator;
 import challenges.Solver;
+import challenges.iteration.FileIteratorDirector;
 
 public class CathodeRayTube implements Solver<Integer> {
 
@@ -16,7 +16,7 @@ public class CathodeRayTube implements Solver<Integer> {
 
         var drawingIndex = 0;
         var sb = new StringBuilder();
-        for (var element : new FileLineIterator(10, false)) {
+        for (var element : new FileIteratorDirector().createFileElementIterator(10, false)) {
             cycle++;
             drawingIndex++;
             if (drawingIndex >= registerXValue && drawingIndex < registerXValue + 3) {
