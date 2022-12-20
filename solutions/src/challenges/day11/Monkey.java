@@ -5,20 +5,20 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class Monkey {
-    private final Function<Integer, Integer> operation;
+    private final Function<Long, Long> operation;
     private final String operator;
     private final boolean multiply;
     private final int divisibleBy;
     private final int ifTrueThrowToIndex;
     private final int ifFalseThrowToIndex;
-    private ArrayDeque<Integer> items = new ArrayDeque<>();
+    private final ArrayDeque<Long> items = new ArrayDeque<>();
     private int inspectionCounter = 0;
 
     public Monkey(String startingItems, String operation, String test, String ifTrue, String ifFalse) {
         Arrays.stream(startingItems.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .forEach(val -> items.addLast(val));
+                .forEach(val -> items.addLast(Long.valueOf(val)));
         multiply = operation.contains("*");
         operator = operation.replace("old", "").replace("*", "").replace("+", "").trim();
         this.operation = val -> {
@@ -30,19 +30,19 @@ public class Monkey {
         ifFalseThrowToIndex = Integer.parseInt(ifFalse.trim());
     }
 
-    public Integer applyOperation(Integer item) {
+    public Long applyOperation(Long item) {
         return operation.apply(item);
     }
 
-    public int throwTo(Integer item) {
+    public int throwTo(Long item) {
         return item % divisibleBy == 0 ? ifTrueThrowToIndex : ifFalseThrowToIndex;
     }
 
-    public void addItem(Integer item) {
+    public void addItem(Long item) {
         items.addLast(item);
     }
 
-    public Integer inspectItem() {
+    public Long inspectItem() {
         if (!items.isEmpty()) {
             inspectionCounter++;
         }

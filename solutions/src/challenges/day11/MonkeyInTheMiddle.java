@@ -3,20 +3,22 @@ package challenges.day11;
 import challenges.Solver;
 import challenges.iteration.FileIteratorDirector;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class MonkeyInTheMiddle implements Solver<Integer> {
+public class MonkeyInTheMiddle implements Solver<BigInteger> {
 
     private static final String STARTING_ITEMS = "Starting items: ";
     private static final String OPERATION = "Operation: new = ";
     private static final String TEST = "Test: divisible by ";
     private static final String IF_TRUE = "If true: throw to monkey ";
     private static final String IF_FALSE = "If false: throw to monkey ";
+    private static final int NUMBER_OF_ROUND = 10000;
 
 
     @Override
-    public Integer solve() {
+    public BigInteger solve() {
         String startingItems = "";
         String operation = "";
         String test = "";
@@ -44,14 +46,17 @@ public class MonkeyInTheMiddle implements Solver<Integer> {
         }
 
         var round = new Round();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < NUMBER_OF_ROUND; i++) {
             round.process(monkeys);
         }
 
         return monkeys.stream()
                 .map(Monkey::getInspectionCounter)
+                .map(Long::valueOf)
                 .sorted(Comparator.reverseOrder())
+                .map(BigInteger::valueOf)
                 .limit(2)
-                .reduce(1, (a, b) -> a * b);
+                .reduce(BigInteger::multiply)
+                .orElse(null);
     }
 }

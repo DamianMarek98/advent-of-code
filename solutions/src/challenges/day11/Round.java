@@ -1,7 +1,6 @@
 package challenges.day11;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,7 +13,10 @@ public class Round {
             while (hasItems) {
                 try {
                     var item = monkey.inspectItem();
-                    item = new BigDecimal(monkey.applyOperation(item)).divide(DIVIDER, RoundingMode.DOWN).intValue();
+                    //item = new BigDecimal(monkey.applyOperation(item)).divide(DIVIDER, RoundingMode.DOWN).longValue();
+                    item = monkey.applyOperation(item);
+                    item %= 9699690;
+                    //item %= 96577;
                     var toIndex = monkey.throwTo(item);
                     monkeys.get(toIndex).addItem(item);
                 } catch (NoSuchElementException e) {
