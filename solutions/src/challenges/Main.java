@@ -1,9 +1,9 @@
 package challenges;
 
-import challenges.day11.MonkeyInTheMiddle;
+import challenges.day12.HillClimbingAlgorithm;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new MonkeyInTheMiddle().solve());
+        System.out.println(new HillClimbingAlgorithm().solve());
     }
 }
