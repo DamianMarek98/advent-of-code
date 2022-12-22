@@ -29,6 +29,7 @@ public class Grid {
                     end = new Coordinate(curRow, curCol, null);
                 }
                 grid[curRow][curCol] = elem;
+                visited[curRow][curCol] = false;
                 curCol++;
             }
             curRow++;
@@ -46,6 +47,10 @@ public class Grid {
 
     public Coordinate getEntry() {
         return start;
+    }
+
+    public void setStart(Coordinate start) {
+        this.start = start;
     }
 
     public Coordinate getExit() {
@@ -79,10 +84,13 @@ public class Grid {
         }
         final int valNew = grid[cur.row()][cur.col()];
         final int curVal = grid[parent.row()][parent.col()];
+        final int difference = valNew - curVal;
         if (curVal == Z && valNew == E) {
             return false;
         }
-        final int difference = valNew - curVal;
+//        if (valNew == E) {
+//            return difference != 1;
+//        }
         return difference > 1;
     }
 }
