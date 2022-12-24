@@ -1,9 +1,9 @@
 package challenges;
 
-import challenges.day12.HillClimbingAlgorithm;
+import challenges.day13.DistressSignal;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new HillClimbingAlgorithm().solve());
+        System.out.println(new DistressSignal().solve());
     }
 }
